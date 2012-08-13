@@ -1,0 +1,143 @@
+body {
+	font-family: 'Trebuchet MS', Trebuchet, Verdana, Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.2;
+	
+	color: #424242;
+	background: #E9E9E9;
+}
+
+body::after {
+	/* drop here to open */
+	display: block;
+	position: absolute;
+	top: 40%;
+	text-align: center;
+	left: -8%;
+	
+	font-size: 24px;
+	color: #cbcbcb;
+	padding-bottom: 12px;
+	
+	transform: rotate(-90deg);
+	-webkit-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	-o-transfrom: rotate(-90deg);border-bottom: 2px dotted #cbcbcb;
+
+	content: 'drag here to open the link';
+}
+
+body, html, #tweets {
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+header, nav {
+	position: absolute;
+	z-index: 10;
+	padding: 6px;
+	border-radius: 6px;
+	background: rgba(255,255,255,.2);
+}
+
+header {
+	color: #FF9900;
+	top: 24px;
+	left: 20%;/*24px;*/
+}
+
+nav {
+	bottom: 24px;
+	right: 20%/*24px;*/
+}
+
+nav form {
+	display: inline;
+}
+
+.tooltip {
+	z-index: 15;
+	background: rgba(0,0,0,.5);
+	position: absolute;
+	padding: 12px;
+	max-width: 300px;
+	line-height: 1.5;
+	border-radius: 6px 6px 6px 0;
+
+	top: 50%;
+	left: 50%;
+
+	color: #fff;
+}
+
+.tooltip a:link, .tooltip a:visited {
+	color: #fff;
+	text-decoration: underline;
+	border: none;
+	margin-left: 1em;
+}
+
+.tooltip a::before {
+	content: '\21e1';
+	position: absolute;
+	margin-left: -1em;
+}
+
+.tooltip::after {
+	height: 50px;
+	border-left: 2px dotted rgba(0,0,0,.2);
+	position: absolute;
+	bottom: -53px;
+	left: 0; /* border */
+	content: '';
+	display: block;
+}
+
+.tooltip.flip-horizontal::after {
+	right: -12px;
+}
+
+#tweets {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 5;
+}
+
+#tweets circle {
+	position: relative;
+	z-index: 10;
+}
+
+#tweets circle:hover {
+	cursor: move;
+}
+
+h1, h2, #drop::after {
+	font-family: 'Muli', 'Trebuchet MS', Trebuchet, Verdana, Helvetica, Arial, sans-serif;
+	font-weight: normal;
+}
+
+h1, h2 {
+	text-shadow: 0 2px 0 rgba(0,0,0,.2);
+	margin: 0;
+	padding: 0;
+}
+
+a:link, a:visited, a:active {
+	color: #3299BB;
+	text-decoration: none;
+	border-bottom: 2px solid rgba(0,0,0,.2);
+}
+
+/* two body ids: for-username and for-hashtag, which change how the user picture is shown */
+#for-username header a:before {
+	content: '@';
+}
+
+#for-search header a:before {
+}

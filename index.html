@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<title>GIM Twitter Feed Example</title>
+	
+	<link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css' />
+	<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body id="for-username">
+	<header>
+		<h1>Showing tweets <span id="tweet-type">for <a href="#">htw-berlin</a></span></h1>
+	</header>
+
+	<nav>
+		show tweets for
+		<form id="controls">
+			<select name="options">
+				<option value="username">username</option>
+				<option value="search">search</option>
+			</select>
+
+			<input type="text" name="tweet-identifier" placeholder="htw-berlin">
+		</form>
+	</nav>
+
+	<div id="tweets"></div>
+
+	<script src="http://code.jquery.com/jquery-1.7.2.js"></script>	
+	<script src="js/raphael-min.js"></script>
+	<script src="js/jquery.bubbles.js"></script>
+	<script src="js/jquery.tooltip.js"></script>
+	<script src="js/jquery.ify.js"></script>
+
+	<script>
+		$(function () {
+			var $tweets = $('#tweets');
+
+			$tweets
+				.bubbles( 'htw_berlin', 'username' )
+				.one('bubbles.done', function() {
+					// for performance reasons
+					// append this to the container, once, when everthing is done
+					
+					$( this )
+						.on( 'mouseover', 'circle', function () {
+							var $this = $( this );
+							$this.tooltip( 
+								$.ify($this.data('tweet').text ), 
+								{ 
+									'hide': [ 'mouseout', 'mousedown' ],
+									'class': $this.data( 'scale' )
+								}
+							);
+						});
+					})
+				.on('bubbles.left', function ( nah, tweet ) {
+					// open links  
+					var url = 'https://twitter.com/';
+					url += tweet.screenName;
+					url += '/status/';
+					url += tweet.id;
+
+					setTimeout(function() { 
+						window.open(url); 
+					}, 100);
+				});
+
+			// search
+			$('#controls').on('submit', function(e) {
+				var type = $( this ).find( 'select' ).val();
+				var val = $( this ).find( 'input' ).val();
+
+				$( document.body ).attr('id', 'for-' + type)
+				$('#tweet-type > a').text(val);
+
+				$tweets.bubbles( val, type);
+				e.preventDefault();
+			});
+		});		
+	</script>
+
+</body>
+</html>
